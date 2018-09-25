@@ -14,33 +14,27 @@
  */
 #include <cstdio>
 #include <cstring>
-
+
 #define abs(x) ((x) >= 0 ? (x) : (-(x)))
 int v[100010];
 void solve() {
     int n, k;
     scanf("%d%d", &n, &k);
     for (int i = 0; i < n; ++i) scanf("%d", v + i);
-    int l = 0, r = 0, sum = 0;
-    int bestval = 0x7fffffff, bestl = 0, bestr = 0;
+    int l = 0, r = 0, sum = v[0];
+    int bestsum = 0x7fffffff, bestl = 0, bestr = 0;
     while (r < n) {
-        sum += v[r];
-        if (abs(k - sum) < abs(bestval)) {
-            bestval = k - sum;
+        if (abs(sum - k) < abs(bestsum - k)) {
             bestl = l;
             bestr = r;
-            if (k == sum) break;
+            bestsum = sum;
+            if (sum == k) break;
         }
-        while (l < r && sum > k) {
+        if (l < r && sum > k) {
             sum -= v[l++];
+        } else if (sum != k) {
+            sum += v[++r];
         }
-        if (abs(k - sum) < abs(bestval)) {
-            bestval = k - sum;
-            bestl = l;
-            bestr = r;
-            if (k == sum) break;
-        }
-        r++;
     }
     printf("%d %d\n", bestl, bestr);
 }
