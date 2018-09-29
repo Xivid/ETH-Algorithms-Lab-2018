@@ -14,7 +14,6 @@
  */
 #include <cstdio>
 #include <cstring>
-
 #define abs(x) ((x) >= 0 ? (x) : (-(x)))
 int v[100010];
 void solve() {
